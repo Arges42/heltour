@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  heltour-web:
+  heltour:
     hostname: heltour_dev
     build:
       context: ..
@@ -8,8 +8,10 @@ services:
     volumes:
       - ..:/home/vagrant/heltour
     command: sleep infinity
-    network_mode: "host"  
     user: vagrant
+    links:
+      - db
+      - redis
   db:
     image: postgres:12.16
     restart: always
@@ -21,13 +23,11 @@ services:
       - '5432:5432'
     volumes: 
       - db:/var/lib/postgresql/data
-    network_mode: "host"  
   redis:
     image: redis:7
     restart: always
     ports:
       - '6379:6379'
-    network_mode: "host"  
 volumes:
   db:
     driver: local
