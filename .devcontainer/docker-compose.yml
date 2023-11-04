@@ -4,16 +4,12 @@ services:
     hostname: heltour_dev
     build:
       context: ..
-      dockerfile: .devcontainer/heltour_web.Dockerfile
+      dockerfile: .devcontainer/heltour.Dockerfile
     volumes:
       - ..:/home/vagrant/heltour
     command: sleep infinity
     network_mode: "host"  
     user: vagrant
-  # heltour-api:
-  #   build:
-  #     context: ..
-  #     dockerfile: .devcontainer/heltour_api.Dockerfile
   db:
     image: postgres:12.16
     restart: always
