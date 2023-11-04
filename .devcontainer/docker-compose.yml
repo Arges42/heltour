@@ -6,9 +6,10 @@ services:
       context: ..
       dockerfile: .devcontainer/heltour_web.Dockerfile
     volumes:
-      - ../..:/workspaces
+      - ..:/home/vagrant/heltour
     command: sleep infinity
     network_mode: "host"  
+    user: vagrant
   # heltour-api:
   #   build:
   #     context: ..
