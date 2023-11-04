@@ -9,3 +9,6 @@ source env/bin/activate
 git config --global --add safe.directory /home/vagrant/heltour
 cd /home/vagrant/heltour
 poetry install
+
+# Modify greeting message
+echo "cat /home/vagrant/heltour/.devcontainer/welcome_bash.txt" >> /home/vagrant/.bashrc
