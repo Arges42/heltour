@@ -40,15 +40,16 @@ RUN python3 -m pip install --upgrade setuptools
 
 # Install poetry
 RUN curl -sSL https://install.python-poetry.org | POETRY_VERSION=${POETRY_VERSION} python3 -
-ENV PATH="${PATH}:$HOME/.local/bin"
+ENV PATH="${PATH}:/home/${USERNAME}/.local/bin"
 
-# Install SASS from node.js, because pure dart-sass does not seem to be supported
-RUN sudo apt-get update &&\
-    sudo apt-get install -y nodejs npm &&\
-    mkdir $HOME/.npm-global &&\
-    npm config set prefix '~/.npm-global'
-ENV PATH=$HOME/.npm-global/bin:$PATH
-RUN npm install -g sass
+# Install SASS using ruby-gem (even though its deprecated)
+RUN sudo apt-get install -y ruby3.1-dev &&\
+    gem install --user-install sass
+ENV PATH="${PATH}:/home/${USERNAME}/.local/share/gem/ruby/3.1.0/bin"
+
+
+# RUN gem install --user-install sass
+
 
 # Install virtualenv
 RUN python -m pip install virtualenv
@@ -56,3 +57,5 @@ RUN python -m pip install virtualenv
 # Install Fabric3 (not fabric)
 RUN pip install fabric3
 
+# Install psql client to use fabric commands, that rely on it
+RUN sudo apt-get install -y postgresql-client
