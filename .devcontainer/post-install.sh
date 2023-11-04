@@ -10,4 +10,3 @@ source env/bin/activate
 #pip install poetry
 git config --global --add safe.directory /workspaces/heltour
 poetry install
-fab update
