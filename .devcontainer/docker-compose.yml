@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  heltour-web:
+    hostname: heltour_dev
+    build:
+      context: ..
+      dockerfile: .devcontainer/heltour_web.Dockerfile
+    volumes:
+      - ../..:/workspaces
+    command: sleep infinity
+    network_mode: "host"  
+  # heltour-api:
+  #   build:
+  #     context: ..
+  #     dockerfile: .devcontainer/heltour_api.Dockerfile
+  db:
+    image: postgres:12.16
+    restart: always
+    environment:
+      - POSTGRES_DB=heltour_lichess4545
+      - POSTGRES_USER=heltour_lichess4545
+      - POSTGRES_PASSWORD=sown shuts combiner chattels
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+    network_mode: "host"  
+  redis:
+    image: redis:7
+    restart: always
+    ports:
+      - '6379:6379'
+    network_mode: "host"  
+volumes:
+  db:
+    driver: local
